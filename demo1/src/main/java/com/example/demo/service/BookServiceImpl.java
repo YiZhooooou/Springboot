@@ -10,7 +10,7 @@ import java.util.Objects;
 @Service
 public class BookServiceImpl implements BookService{
 
-    @Autowired
+//    @Autowired
     private BookRepository bookRepository;
 
     @Override
