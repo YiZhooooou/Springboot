@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/demo")
 public class BookController {
-
-    // Annotation
     @Autowired
     private BookService bookService;
 
