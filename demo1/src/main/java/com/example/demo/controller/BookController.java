@@ -13,29 +13,41 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    // Save operation
     @PostMapping("/books")
     public Book saveBook(@Valid @RequestBody Book book) {
         return bookService.saveBook(book);
     }
 
-    // Read operation
     @GetMapping("/books")
     public List<Book> fetchBookList() {
         return bookService.fetchBookList();
     }
 
-    // Update operation
     @PutMapping("/books/{id}")
     public Book updateBook(@RequestBody Book book,
                            @PathVariable("id") Integer bookId) {
         return bookService.updateBook(book, bookId);
     }
 
-    // Delete operation
     @DeleteMapping("/books/{id}")
     public String deleteBookById(@PathVariable("id") Integer bookId) {
         bookService.deleteBookById(bookId);
         return "Deleted Successfully";
+    }
+
+    // Demo
+    @PostMapping("/books/saveDemo")
+    public Book saveBookDemo(){
+        return bookService.saveBook(new Book(2001, "Computer Networks"));
+    }
+
+    @GetMapping("/books/getDemoById")
+    public Book getBookDemoById(){
+        return bookService.findById(2001);
+    }
+
+    @GetMapping("books/getDemoByName")
+    public List<Book> getBookDemoByName(){
+        return bookService.findByName("Computer Networks");
     }
 }
