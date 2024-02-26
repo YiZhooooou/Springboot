@@ -58,6 +58,15 @@ public class BookController {
 
     @GetMapping("books/getDemoByName")
     public ResponseEntity<?> getBookDemoByName(){
+        List<Book> res = bookService.findByName("Computer Networks");
+        if (!res.isEmpty())
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("books/getNoBooks")
+    public ResponseEntity<?> getNoBooks(){
         List<Book> res = bookService.findByName("Computer Network");
         if (!res.isEmpty())
             return new ResponseEntity<>(res, HttpStatus.OK);
