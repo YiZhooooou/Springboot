@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import com.example.demo.service.BookService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,13 +25,13 @@ public class BookController {
         return bookService.fetchBookList();
     }
 
-    @PutMapping("/books/{id}")
+    @PutMapping("/books/save/{id}")
     public Book updateBook(@RequestBody Book book,
                            @PathVariable("id") Integer bookId) {
         return bookService.updateBook(book, bookId);
     }
 
-    @DeleteMapping("/books/{id}")
+    @DeleteMapping("/books/delete/{id}")
     public String deleteBookById(@PathVariable("id") Integer bookId) {
         bookService.deleteBookById(bookId);
         return "Deleted Successfully";
@@ -37,17 +39,29 @@ public class BookController {
 
     // Demo
     @PostMapping("/books/saveDemo")
-    public Book saveBookDemo(){
-        return bookService.saveBook(new Book(2001, "Computer Networks"));
+    public ResponseEntity<?> saveBookDemo(){
+        Book res = bookService.saveBook(new Book(2005, "Computer Networks"));
+        if (res != null)
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/books/getDemoById")
-    public Book getBookDemoById(){
-        return bookService.findById(2001);
+    public ResponseEntity<?> getBookDemoById(){
+        Book res = bookService.findById(2001);
+        if (res != null)
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("books/getDemoByName")
-    public List<Book> getBookDemoByName(){
-        return bookService.findByName("Computer Networks");
+    public ResponseEntity<?> getBookDemoByName(){
+        List<Book> res = bookService.findByName("Computer Network");
+        if (!res.isEmpty())
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
     }
 }
