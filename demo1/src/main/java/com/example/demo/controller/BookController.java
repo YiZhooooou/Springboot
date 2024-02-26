@@ -67,7 +67,7 @@ public class BookController {
 
     @GetMapping("books/getNoBooks")
     public ResponseEntity<?> getNoBooks(){
-        List<Book> res = bookService.findByName("Computer Network");
+        List<Book> res = bookService.findByName("DOESNOTEXIST");
         if (!res.isEmpty())
             return new ResponseEntity<>(res, HttpStatus.OK);
         else
