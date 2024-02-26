@@ -7,15 +7,15 @@ import java.util.List;
 
 @Service
 public interface BookService {
-    // save operation
     Book saveBook(Book book);
 
-    // read operation
     List<Book> fetchBookList();
 
-    // update operation
+    Book findById(Integer Id);
+
     Book updateBook(Book book, Integer bookId);
 
-    // delete operation
     void deleteBookById(Integer bookId);
+
+    List<Book> findByName(String name);
 }

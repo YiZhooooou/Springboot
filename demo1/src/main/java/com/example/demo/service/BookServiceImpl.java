@@ -24,6 +24,11 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
+    public Book findById(Integer Id) {
+        return bookRepository.findById(Id).get();
+    }
+
+    @Override
     public Book updateBook(Book book, Integer bookId) {
         Book depDB = bookRepository.findById(bookId).get();
 
@@ -39,4 +44,10 @@ public class BookServiceImpl implements BookService{
     public void deleteBookById(Integer bookId) {
         bookRepository.deleteById(bookId);
     }
+
+    @Override
+    public List<Book> findByName(String name) {
+        return bookRepository.findByBookName(name);
+    }
+
 }
