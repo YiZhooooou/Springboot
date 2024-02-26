@@ -51,9 +51,9 @@ public class BookController {
     public ResponseEntity<?> getBookDemoById(){
         Book res = bookService.findById(2001);
         if (res != null)
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(res, HttpStatus.OK);
         else
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("books/getDemoByName")
